@@ -21,7 +21,6 @@ export default async function getWorkoutByUserId(userId: string) {
     .from(workoutExercises)
     .innerJoin(exercises, eq(workoutExercises.exerciseId, exercises.id))
     .where(eq(workoutExercises.workoutId, workoutResult.id))
-  console.log(workoutExercisesData)
 
   return { workout: workoutResult, workout_exercises: workoutExercisesData }
 }
