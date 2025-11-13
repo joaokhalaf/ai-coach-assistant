@@ -5,6 +5,7 @@ import { betterAuthPlugin, OpenAPI } from './plugins/better-auth'
 import { getProfile } from './routes/get-profile'
 import { changeProfile } from './routes/change-profile'
 import { createProfile } from './routes/create-profile'
+import { getWorkout } from './routes/get-workout'
 
 export const app = new Elysia()
   .use(
@@ -22,6 +23,7 @@ export const app = new Elysia()
   .use(getProfile)
   .use(changeProfile)
   .use(createProfile)
+  .use(getWorkout)
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'VALIDATION': {
