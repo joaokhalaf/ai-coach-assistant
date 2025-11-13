@@ -10,21 +10,7 @@ export const getWorkout = new Elysia().use(withAuth()).get(
   '/workout/:id',
   async ({ user }): Promise<GetWorkoutResponse> => {
     const result = await getWorkoutByUserId(user.id)
-
-    return {
-      workout: {
-        ...result.workout,
-        date: result.workout.date.toISOString(),
-        createdAt: result.workout.createdAt.toISOString(),
-        updatedAt: result.workout.updatedAt.toISOString(),
-      },
-      workout_exercises: result.workout_exercises.map(ex => ({
-        ...ex.workout_exercises,
-        exercise_name: ex.exercises.name,
-        createdAt: ex.workout_exercises.createdAt.toISOString(),
-        updatedAt: ex.workout_exercises.updatedAt.toISOString(),
-      })),
-    }
+    return result
   },
   {
     auth: true,

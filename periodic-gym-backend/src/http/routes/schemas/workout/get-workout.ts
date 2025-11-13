@@ -22,14 +22,19 @@ export const WorkoutSchema = z.object({
   completed: z.boolean().describe('Se o treino foi concluído'),
   createdAt: z.string().describe('Data de criação'),
   updatedAt: z.string().describe('Data de atualização'),
-})
-
-export const GetWorkoutResponseSchema = z.object({
-  workout: WorkoutSchema.describe('Informações do treino'),
   workout_exercises: z
     .array(WorkoutExerciseSchema)
     .describe('Exercícios do treino'),
 })
+
+export const GetWorkoutResponseSchema = z.union([
+  z.object({ workout: WorkoutSchema.describe('Treino único com exercícios') }),
+  z.object({
+    workouts: z
+      .array(WorkoutSchema)
+      .describe('Lista de treinos com exercícios'),
+  }),
+])
 
 export type Workout = z.infer<typeof WorkoutSchema>
 export type WorkoutExercise = z.infer<typeof WorkoutExerciseSchema>
